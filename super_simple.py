@@ -58,10 +58,9 @@ def back_arm(degrees, speed=25):
 
 def m02():
     move(-27)
-    back_arm(1, -20)
+    back_arm(-45)
     move(-10, speed=5)
     move(35)
-    back_arm(1, 25)
 
 def m11():
     rotate(-25)
