@@ -53,53 +53,94 @@ def follow_line(inches, side='left', speed=motor_pair.get_default_speed()):
 def front_arm(degrees, speed=25):
     front.run_for_degrees(degrees * 2, speed)
 
+def front_arm2(degrees, speed=25):
+    front.set_degrees_counted(0)
+    while abs(front.get_degrees_counted()) < abs(degrees * 2):
+        front.start(speed)
+    front.stop()
+
 def back_arm(degrees, speed=25):
     back.run_for_degrees(degrees * 2, speed)
 
 def m02():
-    move(-27)
-    back_arm(-45)
+    reset_arms()
+    move(-26.5)
+    back_arm(-55)
     move(-10, speed=5)
     move(35)
 
 def m11():
+    reset_arms()
     rotate(-25)
     move(3)
-    follow_line_right(50)
-    back_arm(-45)
+    follow_line(50, 'right')
+    back_arm(-55)
     rotate(175)
     move(-15)
     left_motor.run_for_seconds(2)
-    move(10)
-    back_arm(45)
-    move(55)
+    move(70)
 
 def m13():
     reset_arms()
     front_arm(-90)
     rotate(-25)
     move(3)
-    follow_line_right(29)
+    follow_line(29, 'right')
     rotate(-90)
-    follow_line_right(12)
+    follow_line(12, 'right')
     move(6)
     rotate(80)
-    follow_line_right(22.5)
+    follow_line(22, 'right')
     front_arm(90)
-    rotate(-90)
-    move(2)
+    rotate(-88)
+    move(1)
     back_arm(-90)
-    front_arm(-90)
+    front_arm(-90, speed=100)
     reset_arms()
-    move(-5)
+    move(-3)
     rotate(-90)
     move(40)
     rotate(-45)
     move(28)
 
+def m08():
+    reset_arms()
+    rotate(-45)
+    move(6.5)
+    follow_line(9, 'right')
+    move(3)
+    rotate(-50)
+    front_arm(45, -25)
+    follow_line(18, 'right')
+    rotate(-5)
+    front_arm(45, 25)
+
+def m05():
+    reset_arms()
+    rotate(-45)
+    move(6.5)
+    follow_line(9, 'right')
+    move(3)
+    rotate(-50)
+    front_arm(90, -25)
+    follow_line(17.7, 'right')
+    rotate(-5)
+    front.run_for_seconds(1, 50)
+    rotate(-45)
+    front.run_for_seconds(1, -100)
+    move(2)
+    front.run_for_seconds(.5, 100)
+    front.run_for_seconds(.5, -100)
+    rotate(-110)
+    move(27)
+
 #m02()
 #m11()
 #m13()
+#m08()
+m05()
+
+#front_arm(45, 100)
 
 # Exit code
 raise SystemExit()
