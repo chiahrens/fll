@@ -3,11 +3,11 @@ import time
 
 # Define MotorPair with right motor on port A and left motor on port B. Set wheel size to 11 inches and default speed to 45%.
 WHEEL_CIRCUMFERENCE = 11
-motor_pair = MotorPair('A', 'E')
-motor_pair.set_motor_rotation(WHEEL_CIRCUMFERENCE, 'in')
-motor_pair.set_default_speed(35)
-left_motor= Motor('A')
-right_motor = Motor('E')
+robot = MotorPair('A', 'E')
+robot.set_motor_rotation(WHEEL_CIRCUMFERENCE, 'in')
+robot.set_default_speed(35)
+left_wheel= Motor('A')
+right_wheel = Motor('E')
 front = Motor('D')
 back = Motor('C')
 left = ColorSensor('B')
@@ -22,28 +22,29 @@ def reset_arms():
 
 # Reset odometer to 0
 def reset_odometer():
-    right_motor.set_degrees_counted(0)
+    right_wheel.set_degrees_counted(0)
 
 # Read odometer
 def read_odometer():
-    return (right_motor.get_degrees_counted() / 360) * WHEEL_CIRCUMFERENCE
+    return (right_wheel.get_degrees_counted() / 360) * WHEEL_CIRCUMFERENCE
 
 # Rotates the robot by specified angle. Positive to rotate right. Negative to rotate left.
 def rotate(angle):
-    motor_pair.move(angle * 1.67, 'degrees', 100, 30)
+    robot.move(angle * 1.67, 'degrees', 100, 30)
 
 # Moves robot forward or backward by inches. If angle is set, it rotates the robot by specified angle first.
-def move(inches, steering=0, speed=None):
-    motor_pair.move(inches, 'in', steering, speed=speed)
+def move(inches, speed=None, steering=0):
+    robot.move(inches, 'in', steering, speed=speed)
 
-def follow_line(side, inches, speed=motor_pair.get_default_speed()):
+def follow_line(side, inches, speed=robot.get_default_speed()):
     reset_odometer()
     while read_odometer() < inches:
         steering = int(side.get_reflected_light() - 50)
-        motor_pair.start_at_power(speed, steering)
-    motor_pair.stop()
+        robot.start_at_power(speed, steering)
+    robot.stop()
 
 def arm(motor, degrees, speed=25):
+    # motor.run_for_rotation(rotations, speed)
     motor.set_degrees_counted(0)
     if(degrees > 0):
         motor.start(speed)
@@ -57,7 +58,7 @@ def m02():
     reset_arms()
     move(-26.5)
     arm(back, -55)
-    move(-10, speed=5)
+    move(-10, 5)
     move(35)
 
 def m11():
@@ -68,7 +69,7 @@ def m11():
     arm(back, -55)
     rotate(175)
     move(-15)
-    left_motor.run_for_seconds(2)
+    right_wheel.run_for_seconds(2)
     move(70)
 
 def m13():
@@ -78,7 +79,7 @@ def m13():
     move(3)
     follow_line(right, 29)
     rotate(-90)
-    follow_line(right, 12')
+    follow_line(right, 12)
     move(6)
     rotate(80)
     follow_line(right, 22)
@@ -86,7 +87,7 @@ def m13():
     rotate(-88)
     move(1)
     arm(back, -90)
-    arm(front, -90, speed=100)
+    arm(front, -90, 100)
     reset_arms()
     move(-3)
     rotate(-90)
@@ -131,9 +132,10 @@ def m05():
 #m08()
 #m05()
 
+#arm(front, -90)
+#arm(back, -90)
 reset_arms()
-arm(front, -90)
-arm(back, -90)
+
 
 # Exit code
 raise SystemExit()
