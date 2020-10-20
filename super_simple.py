@@ -1,11 +1,12 @@
 from spike import Motor, MotorPair, ColorSensor, PrimeHub
 import time
 
-# Define MotorPair with right motor on port A and left motor on port B. Set wheel size to 11 inches and default speed to 45%.
+# Initialize motors and sensors
 WHEEL_CIRCUMFERENCE = 11
+DEFAULT_SPEED = 35
 robot = MotorPair('A', 'E')
 robot.set_motor_rotation(WHEEL_CIRCUMFERENCE, 'in')
-robot.set_default_speed(35)
+robot.set_default_speed(DEFAULT_SPEED)
 left_wheel= Motor('A')
 right_wheel = Motor('E')
 front = Motor('D')
@@ -13,6 +14,7 @@ back = Motor('C')
 left = ColorSensor('B')
 right = ColorSensor('F')
 
+# Set front and back arms in up postions
 def reset_arms():
     front.start(50)
     back.start(50)
@@ -24,25 +26,39 @@ def reset_arms():
 def reset_odometer():
     right_wheel.set_degrees_counted(0)
 
-# Read odometer
+# Read odometer. Return distance traveled in inches
 def read_odometer():
     return (right_wheel.get_degrees_counted() / 360) * WHEEL_CIRCUMFERENCE
 
-# Rotates the robot by specified angle. Positive to rotate right. Negative to rotate left.
+# Rotates the robot by specified angle - positive to rotate right, negative to rotate left.
+# Example:
+#   rotate(90)        # Rotates the robot 90 degrees to the right
+#   rotate(-180)      # Rotates the robot 180 degrees to the left
 def rotate(angle):
     robot.move(angle * 1.67, 'degrees', 100, 30)
 
-# Moves robot forward or backward by inches. If angle is set, it rotates the robot by specified angle first.
+# Moves robot forward or backward by inches.
+# Example:
+#   move(15)          # Moves robot forward 15 inches at DEFAULT_SPEED
+#   move(-7, 25)      # Moves robot backward 7 inches at 25% speed
 def move(inches, speed=None, steering=0):
     robot.move(inches, 'in', steering, speed=speed)
 
-def follow_line(side, inches, speed=robot.get_default_speed()):
+# Follow line for specified number of inches
+# Example:
+#   follow_line(right, 15)        # Follow line for 15 inches using the right light sensor
+#   follow_line(left, 8)          # Follow line for 8 inches using the left light sensor
+def follow_line(side, inches, speed=DEFAULT_SPEED):
     reset_odometer()
     while read_odometer() < inches:
         steering = int(side.get_reflected_light() - 50)
         robot.start_at_power(speed, steering)
     robot.stop()
 
+# Move front or back attachment
+# Example:
+#   arm(front, 45)        # Move the front attachment up by 45 degrees
+#   arm(back, -90)        # Move the back attachment down by 90 degrees
 def arm(motor, degrees, speed=25):
     # motor.run_for_rotation(rotations, speed)
     motor.set_degrees_counted(0)
@@ -53,6 +69,8 @@ def arm(motor, degrees, speed=25):
     while abs(motor.get_degrees_counted()) < abs(degrees * 2):
         continue
     motor.stop()
+
+################################ Missions Start Here ################################
 
 def m02():
     reset_arms()
