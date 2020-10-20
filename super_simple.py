@@ -32,22 +32,22 @@ def read_odometer():
 
 # Rotates the robot by specified angle - positive to rotate right, negative to rotate left.
 # Example:
-#   rotate(90)        # Rotates the robot 90 degrees to the right
-#   rotate(-180)      # Rotates the robot 180 degrees to the left
+#rotate(90)        # Rotates the robot 90 degrees to the right
+#rotate(-180)    # Rotates the robot 180 degrees to the left
 def rotate(angle):
     robot.move(angle * 1.67, 'degrees', 100, 30)
 
 # Moves robot forward or backward by inches.
 # Example:
-#   move(15)          # Moves robot forward 15 inches at DEFAULT_SPEED
-#   move(-7, 25)      # Moves robot backward 7 inches at 25% speed
+#move(15)        # Moves robot forward 15 inches at DEFAULT_SPEED
+#move(-7, 25)    # Moves robot backward 7 inches at 25% speed
 def move(inches, speed=None, steering=0):
     robot.move(inches, 'in', steering, speed=speed)
 
 # Follow line for specified number of inches
 # Example:
-#   follow_line(right, 15)        # Follow line for 15 inches using the right light sensor
-#   follow_line(left, 8)          # Follow line for 8 inches using the left light sensor
+#follow_line(right, 15)        # Follow line for 15 inches using the right light sensor
+#follow_line(left, 8)        # Follow line for 8 inches using the left light sensor
 def follow_line(side, inches, speed=DEFAULT_SPEED):
     reset_odometer()
     while read_odometer() < inches:
@@ -57,8 +57,8 @@ def follow_line(side, inches, speed=DEFAULT_SPEED):
 
 # Move front or back attachment
 # Example:
-#   arm(front, 45)        # Move the front attachment up by 45 degrees
-#   arm(back, -90)        # Move the back attachment down by 90 degrees
+#arm(front, 45)        # Move the front attachment up by 45 degrees
+#arm(back, -90)        # Move the back attachment down by 90 degrees
 def arm(motor, degrees, speed=25):
     # motor.run_for_rotation(rotations, speed)
     motor.set_degrees_counted(0)
@@ -72,87 +72,100 @@ def arm(motor, degrees, speed=25):
 
 ################################ Missions Start Here ################################
 
-def m02():
+def m02_m11():
     reset_arms()
-    move(-26.5)
-    arm(back, -55)
-    move(-10, 5)
-    move(35)
-
-def m11():
-    reset_arms()
-    rotate(-25)
-    move(3)
-    follow_line(right, 50)
-    arm(back, -55)
-    rotate(175)
-    move(-15)
-    right_wheel.run_for_seconds(2)
-    move(70)
-
-def m13():
-    reset_arms()
-    arm(front, -90)
-    rotate(-25)
-    move(3)
-    follow_line(right, 29)
+    move(9)
+    rotate(-40)
+    follow_line(right, 18.5)
     rotate(-90)
+    move(-6.5)
+    rotate(-91)
+    arm(back, -65)
+    move(-10, 5)
+    move(5)
+    reset_arms()
+    rotate(90)
+    move(6.5)
+    rotate(88)
+    follow_line(right, 26)
+    arm(back, -55)
+    rotate(170)
+    move(-15, 25)
+    left_wheel.start()
+    time.sleep(1.5)
+    left_wheel.stop()
+    move(15)
+    rotate(-15)
+    move(50)
+
+def m06_13():
+    reset_arms()
+    arm(front, -45)
+    move(9)
+    rotate(-40)
+    follow_line(right, 27)
+    rotate(-90)
+    arm(back, -45)
     follow_line(right, 12)
     move(6)
+    reset_arms()
     rotate(80)
     follow_line(right, 22)
-    arm(front, 90)
-    rotate(-88)
-    move(1)
-    arm(back, -90)
-    arm(front, -90, 100)
+    rotate(90)
+    move(-1.5)
+    arm(back, -90, 100)
+    move(2.5)
     reset_arms()
-    move(-3)
-    rotate(-90)
+    rotate(90)
     move(40)
     rotate(-45)
     move(28)
 
-def m08():
+def m05_08():
     reset_arms()
     rotate(-45)
     move(6.5)
     follow_line(right, 9)
     move(3)
     rotate(-50)
-    arm(front, 45, -25)
-    follow_line(right, 18)
+    arm(front, -40)
+    follow_line(right, 17.8)
     rotate(-5)
-    arm(front, 45, 25)
-
-def m05():
-    reset_arms()
+    arm(front, 10)
+    time.sleep(.5)
+    move(-1)
+    arm(front, -65)
     rotate(-45)
-    move(6.5)
-    follow_line(right, 9)
     move(3)
-    rotate(-50)
-    arm(front, 90, -25)
-    follow_line(right, 17.7)
-    rotate(-5)
-    front.run_for_seconds(1, 50)
-    rotate(-45)
-    front.run_for_seconds(1, -100)
-    move(2)
-    front.run_for_seconds(.5, 100)
-    front.run_for_seconds(.5, -100)
-    rotate(-110)
-    move(27)
+    arm(front, 55)
+    time.sleep(.5)
+    arm(front, -55)
+    rotate(-125)
+    move(25)
+    rotate(80)
+    move(12)
 
-#m02()
-#m11()
-#m13()
-#m08()
-#m05()
+def m12():
+    reset_arms()
+    move(9)
+    rotate(-40)
+    follow_line(right, 49)
+    rotate(-56)
+    move(2.4)
+    arm(front, -90)
+    rotate(-30)
+    reset_arms()
+    rotate(-70)
+    move(4.5)
+    arm(front, -90)
+    rotate(-40)
+    move(55)
 
-#arm(front, -90)
-#arm(back, -90)
-reset_arms()
+m12()
+#m02_m11()
+#m06_13()
+#m05_08()
+
 
 
 # Exit code
