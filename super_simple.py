@@ -32,22 +32,22 @@ def read_odometer():
 
 # Rotates the robot by specified angle - positive to rotate right, negative to rotate left.
 # Example:
-#rotate(90)        # Rotates the robot 90 degrees to the right
-#rotate(-180)    # Rotates the robot 180 degrees to the left
+#   rotate(90)        # Rotates the robot 90 degrees to the right
+#   rotate(-180)    # Rotates the robot 180 degrees to the left
 def rotate(angle):
     robot.move(angle * 1.67, 'degrees', 100, 30)
 
 # Moves robot forward or backward by inches.
 # Example:
-#move(15)        # Moves robot forward 15 inches at DEFAULT_SPEED
-#move(-7, 25)    # Moves robot backward 7 inches at 25% speed
+#   move(15)        # Moves robot forward 15 inches at DEFAULT_SPEED
+#   move(-7, 25)    # Moves robot backward 7 inches at 25% speed
 def move(inches, speed=None, steering=0):
     robot.move(inches, 'in', steering, speed=speed)
 
 # Follow line for specified number of inches
 # Example:
-#follow_line(right, 15)        # Follow line for 15 inches using the right light sensor
-#follow_line(left, 8)        # Follow line for 8 inches using the left light sensor
+#   follow_line(right, 15)        # Follow line for 15 inches using the right light sensor
+#   follow_line(left, 8)        # Follow line for 8 inches using the left light sensor
 def follow_line(side, inches, speed=DEFAULT_SPEED):
     reset_odometer()
     while read_odometer() < inches:
@@ -57,8 +57,8 @@ def follow_line(side, inches, speed=DEFAULT_SPEED):
 
 # Move front or back attachment
 # Example:
-#arm(front, 45)        # Move the front attachment up by 45 degrees
-#arm(back, -90)        # Move the back attachment down by 90 degrees
+#   arm(front, 45)        # Move the front attachment up by 45 degrees
+#   arm(back, -90)        # Move the back attachment down by 90 degrees
 def arm(motor, degrees, speed=25):
     # motor.run_for_rotation(rotations, speed)
     motor.set_degrees_counted(0)
