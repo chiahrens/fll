@@ -7,14 +7,15 @@ right_wheel = Motor('E')
 color_sensor = ColorSensor('F')
 
 # Homework assignment #1
-# Write a line follower function that stops when the wheel rotation reaches the "rotations" parameter
+# Write a line follower function that stops when the wheel rotation reaches the "amount" parameter
 # The current logic is from the example and never stops. Change it so that it does
 # Hint #1: right_wheel.set_degrees_counted(0) resets the right wheel rotation counter to zero
 # Hint #2: right_wheel.get_degrees_counted() returns the number of degrees counted
 # Hint #3: There are 360 degrees in a wheel rotation.
+# Hint #4: Change the True to a condition
 # Example:
 #  follow_line(10) should make to robot follow the line for 10 rotations of the wheel
-def follow_line(rotations):
+def follow_line(amount):
   while True:
     steering = color_sensor.get_reflected_light() - 50
     motor_pair.start_at_power(35, int(steering))
