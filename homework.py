@@ -33,6 +33,6 @@ def rotate(degrees):
 # Change follow_line from assignment #1 to stop at amount in cm
 # Hint #1: There are 360 degrees in a wheel rotation. The circumference of the wheel is 28 cm.
 # Example:
-#   follow_line(24) should make the robot follow the line for 24 inches
+#   follow_line(100) should make the robot follow the line for 100 cm
 def follow_line_cm(amount):
 
