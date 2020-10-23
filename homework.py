@@ -2,7 +2,7 @@ from spike import Motor, MotorPair, ColorSensor
 
 # Initialize motors and sensors
 motor_pair = MotorPair('A', 'E')
-motor_pair.set_motor_rotation(28)
+motor_pair.set_motor_rotation(27.63)
 right_wheel = Motor('E')
 color_sensor = ColorSensor('F')
 
@@ -22,7 +22,7 @@ def follow_line(rotations):
   
 # Homework assignment #2
 # Write a function to rotate the robot by exact degrees
-# The current function will cause the robot to turn either right (postive), or left (negative), but the math is off.
+# The current function will cause the robot to turn either right (postive), or left (negative), but not the correct amount
 # Example:
 #   rotate(90) should make the robot rotate 90 degrees to the right
 #   rotate(-90) should make the robot rotate 90 degrees to the left
@@ -31,7 +31,7 @@ def rotate(degrees):
   
 # Homework assignment #3
 # Change follow_line from assignment #1 to stop at amount in cm
-# Hint #1: There are 360 degrees in a wheel rotation. The circumference of the wheel is 28 cm.
+# Hint #1: There are 360 degrees in a wheel rotation. The circumference of the wheel is 27.63 cm.
 # Example:
 #   follow_line(100) should make the robot follow the line for 100 cm
 def follow_line_cm(amount):
