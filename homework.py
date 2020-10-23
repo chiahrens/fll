@@ -7,7 +7,7 @@ right_wheel = Motor('E')
 color_sensor = ColorSensor('F')
 
 # Homework assignment #1
-# Write a line follower function that stops when the wheel rotation reaches the "distance" parameter
+# Write a line follower function that stops when the wheel rotation reaches the "rotations" parameter
 # The current logic is from the example and never stops. Change it so that it does
 # Hint #1: right_wheel.set_degrees_counted(0) resets the right wheel rotation counter to zero
 # Hint #2: right_wheel.get_degrees_counted() returns the number of degrees counted
