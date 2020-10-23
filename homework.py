@@ -2,7 +2,7 @@ from spike import Motor, MotorPair, ColorSensor
 
 # Initialize motors and sensors
 motor_pair = MotorPair('A', 'E')
-motor_pair.set_motor_rotation(11, 'in')
+motor_pair.set_motor_rotation(28)
 right_wheel = Motor('E')
 color_sensor = ColorSensor('F')
 
@@ -30,9 +30,9 @@ def rotate(degrees):
   motor_pair.move(degrees * 1, 'degrees', 100, 20)
   
 # Homework assignment #3
-# Change follow_line from assignment #1 to stop at inches
-# Hint #1: There are 360 degrees in a wheel rotation. The circumference of the wheel is 11 inches.
+# Change follow_line from assignment #1 to stop at amount in cm
+# Hint #1: There are 360 degrees in a wheel rotation. The circumference of the wheel is 28 cm.
 # Example:
 #   follow_line(24) should make the robot follow the line for 24 inches
-def follow_line_inches(inches):
+def follow_line_cm(amount):
 
