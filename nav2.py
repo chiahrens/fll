@@ -51,7 +51,7 @@ def follow_line(cm, line_stop=False, steer_x=1, speed=DEFAULT_SPEED):
     if line_stop == True:
         robot.stop()
 
-def move(cm, steering=0, speed=None)
+def move(cm, steering=0, speed=None):
     reset_odometer()
     robot.start(steering, speed)
     while read_odometer() < cm:
@@ -60,57 +60,61 @@ def move(cm, steering=0, speed=None)
 ################################ Helper functions Start Here ################################
 
 def bottom_horizontal(cm):
-    move(23, -3)
+    move(20, -3)
     follow_line(cm, True)
 
 def left_vertical(cm):
-    move(19, -46)
-    follow_line(20)
-    follow_line(15, False, 2, 15)
+    move(16, -46)
+    follow_line(23)
+    follow_line(18, False, 3, 15)
     follow_line(cm, True)
 
 def top_horizontal(cm):
-    move(19, -46)
-    follow_line(20)
-    follow_line(15, False, 2, 15)
+    move(16, -46)
+    follow_line(23)
+    follow_line(18, False, 2, 15)
     move(8, 30)
     follow_line(cm, True)
 
 ################################ Mission functions Start Here ################################
 
-def m06:
+def m06():
     bottom_horizontal(64)
 
-def m09:
+def m09():
     bottom_horizontal(90)
 
-def m11:
+def m11():
     bottom_horizontal(121)
 
-def m04:
+def m04():
+    left_vertical(0)
+
+def m04b():
     left_vertical(18)
 
-def m08:
+def m08():
     left_vertical(42)
 
-def m07:
+def m07():
     top_horizontal(29)
 
-def m08:
+def m08b():
     top_horizontal(45)
 
-def m10:
+def m10():
     top_horizontal(70)
 
-def m13:
+def m13():
     top_horizontal(103)
 
-def m06_08:
+def m06_08():
     bottom_horizontal(64)
     robot.move(6)
     rotate(-90)
-    follow_line(30)
-    robot.move(7)
-    follow_line(10)
-    robot.move(8)
+    follow_line(28)
+    move(7)
+    follow_line(11)
+    move(10)
+    robot.stop()
 
