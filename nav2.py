@@ -22,15 +22,15 @@ back.set_degrees_counted(0)
 #arm(front, 45)        # Move the front attachment up by 45 degrees
 #arm(back, -90)        # Move the back attachment down by 90 degrees
 def arm(motor, degrees, speed=25):
-    # motor.run_for_rotation(rotations, speed)
-    motor.set_degrees_counted(0)
-    if(degrees > 0):
-        motor.start(speed)
-    elif(degrees < 0):
-        motor.start(-speed)
-    while abs(motor.get_degrees_counted()) < abs(degrees * 3.5):
-        continue
-    motor.stop()
+    motor.run_for_degrees(int(degrees * 3.5), speed)
+    #motor.set_degrees_counted(0)
+    #if(degrees > 0):
+    #    motor.start(speed)
+    #elif(degrees < 0):
+    #    motor.start(-speed)
+    #while abs(motor.get_degrees_counted()) < abs(degrees * 3.5):
+    #    continue
+    #motor.stop()
 
 # Set front and back arms in up postions
 def reset_arms():
@@ -174,6 +174,13 @@ def row_machine():
     robot.move(20)
     robot.move(140, speed=100)
 
-row_machine()
+threadmill()
 reset_arms()
+
+
+#arm(front, -90)
+#arm(front, 90)
+#arm(front, -45)
+#reset_arms()
+
 raise SystemExit()
