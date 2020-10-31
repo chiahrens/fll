@@ -7,10 +7,35 @@ DEFAULT_SPEED = 35
 robot = MotorPair('A', 'E')
 robot.set_motor_rotation(WHEEL_CIRCUMFERENCE_CM)
 robot.set_default_speed(DEFAULT_SPEED)
+left_wheel = Motor('A')
 right_wheel = Motor('E')
 left = ColorSensor('B')
 right = ColorSensor('F')
+front = Motor('D')
+back = Motor('C')
+front.set_degrees_counted(0)
+back.set_degrees_counted(0)
 
+
+# Move front or back attachment
+# Example:
+#arm(front, 45)        # Move the front attachment up by 45 degrees
+#arm(back, -90)        # Move the back attachment down by 90 degrees
+def arm(motor, degrees, speed=25):
+    # motor.run_for_rotation(rotations, speed)
+    motor.set_degrees_counted(0)
+    if(degrees > 0):
+        motor.start(speed)
+    elif(degrees < 0):
+        motor.start(-speed)
+    while abs(motor.get_degrees_counted()) < abs(degrees * 3.5):
+        continue
+    motor.stop()
+
+# Set front and back arms in up postions
+def reset_arms():
+    front.run_to_degrees_counted(0)
+    back.run_to_degrees_counted(0)
 
 # Reset odometer to 0
 def reset_odometer():
@@ -60,7 +85,7 @@ def move(cm, steering=0, speed=None):
 ################################ Helper functions Start Here ################################
 
 def bottom_horizontal(cm):
-    move(20, -3)
+    move(20, -6)
     follow_line(cm, True)
 
 def left_vertical(cm):
@@ -118,3 +143,37 @@ def m06_08():
     move(10)
     robot.stop()
 
+def m06_07():
+    bottom_horizontal(64)
+    robot.move(6)
+    rotate(-90)
+    follow_line(26)
+    move(10)
+    robot.stop()
+    rotate(-35)
+    robot.move(30)
+
+def threadmill():
+    m11()
+    rotate(-183)
+    arm(back, -90)
+    robot.move(-30, speed=35)
+    left_wheel.run_for_seconds(1.6)
+    robot.move(30, steering=0, speed=25)
+    robot.move(140, speed=100)
+
+def row_machine():
+    m11()
+    rotate(-48)
+    robot.move(12)
+    arm(front, -90)
+    rotate(-50)
+    robot.move(-3)
+    arm(front, 90)
+    rotate(-90)
+    robot.move(20)
+    robot.move(140, speed=100)
+
+row_machine()
+reset_arms()
+raise SystemExit()
