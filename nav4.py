@@ -48,14 +48,14 @@ def bottom_horizontal(distance):
 def left_vertical(distance):
     move(19, -30)
     follow_line(20)
-    follow_line(15, 3, 20)
+    rotate(-60)
     follow_line(distance)
     follow_line_stop()
 
 def top_horizontal(distance):
     move(19, -30)
     follow_line(20)
-    follow_line(15, 3, 20)
+    rotate(-60)
     move(8, 10)
     follow_line(distance)
     follow_line_stop()
