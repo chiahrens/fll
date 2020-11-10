@@ -41,22 +41,21 @@ def move(distance, angle=0, speed=None):
 ################################ Helper functions Start Here ################################
 
 def bottom_horizontal(distance):
-    move(23, -5)
+    move(18, -15)
     follow_line(distance)
     follow_line_stop()
 
 def left_vertical(distance):
-    move(19, -30)
-    follow_line(20)
-    rotate(-60)
+    move(20, -46)
+    follow_line(25)
+    rotate(-30)
     follow_line(distance)
     follow_line_stop()
 
 def top_horizontal(distance):
-    move(19, -30)
-    follow_line(20)
-    rotate(-60)
-    move(8, 10)
+    move(20, -46)
+    follow_line(25)
+    move(12, -25)
     follow_line(distance)
     follow_line_stop()
 
@@ -79,7 +78,7 @@ def m08():
 
 def m07():
     top_horizontal(29)
-
+m07()
 def m08b():
     top_horizontal(45)
 
